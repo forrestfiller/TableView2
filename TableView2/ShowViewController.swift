@@ -18,7 +18,8 @@ class ShowViewController: UIViewController {
         let view = UIView(frame: frame)
         view.backgroundColor = .darkGrayColor()
         
-        let showBackdrop = UIImageView(frame: CGRect(x: 0, y: 0, width: frame.size.height, height: frame.size.height)) // want a square so use the same height and width!
+        let showBackdrop = UIImageView(frame: CGRect(x: 0, y: 0, width: frame.size.height, height: frame.size.height))
+        // Gives me a square since I'm since the height == width for the imageView
         showBackdrop.image = UIImage(named: self.show.image)
         view.addSubview(showBackdrop)
         
@@ -38,17 +39,19 @@ class ShowViewController: UIViewController {
         
         let font = UIFont(name: "Arial", size: 16)
         let str = NSString(string: self.show.summary)
-/*        let strCast = Array<String>(self.show.cast)
-// @DanKwon: using what we learned in class, I still need to figure out what type of class is an array 
-        of strings-- that is also compatible with the boundingRectWithSize below!
         
-        var boundsCast = strCast.boundingRectWithSize(CGSizeMake(frame.size.width-50, 510),
-            options: .UsesLinesFragmentOrigin,
-            attributes: [NSFontAttributeName:font!],
+        var reduceCast : String = self.show.cast.reduce("", combine: { $0 == "" ? $1 : $0 + "," + $1 })
+        print("reduceCast: ")
+        let cStr = NSString(string: reduceCast)
+        
+        var cBounds = cStr.boundingRectWithSize(
+            CGSizeMake(frame.size.width-40, 500),
+            options: .UsesLineFragmentOrigin,
+            attributes:  [NSFontAttributeName:font!],
             context: nil)
-        bounds.origin.x = 30
-        bounds.origin.y = 310
-*/
+        cBounds.origin.x = 20
+        cBounds.origin.y = 300
+
         var bounds = str.boundingRectWithSize(
             CGSizeMake(frame.size.width-40, 500),
             options: .UsesLineFragmentOrigin,
@@ -66,18 +69,18 @@ class ShowViewController: UIViewController {
         summaryLabel.text = self.show.summary
         view.addSubview(summaryLabel)
         
-        var castString = ""
-        for s in show.cast {
-            castString += "\(s),"
-// @DanKwon:   ---Stuart suggested this block above and the block below this one called "castLabel" to sove my issue with Array<String> from the Show.swif file.
-        }
+//        var castString = ""
+//        for s in show.cast {
+//            castString += "\(s),"
+// @Dan:   ---Stuart suggested this castString block as well as the castLabel block below to sove my issue with Array<String> from the Show.swift file.
+//        }
         let castLabel = UILabel(frame: bounds)
         castLabel.textColor = .whiteColor()
         castLabel.backgroundColor = .clearColor()
         castLabel.numberOfLines = 0 // "0" means unlimited. default is "1" which means only one line!
         castLabel.lineBreakMode = .ByWordWrapping // don't break the words up
         castLabel.textAlignment = .Center
-        castLabel.text = castString
+        castLabel.text = reduceCast
         view.addSubview(castLabel)
         
         self.view = view //passing off the view to the view controller
