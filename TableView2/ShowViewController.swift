@@ -18,6 +18,7 @@ class ShowViewController: UIViewController {
         let view = UIView(frame: frame)
         view.backgroundColor = .darkGrayColor()
         
+        
         let showBackdrop = UIImageView(frame: CGRect(x: 0, y: 0, width: frame.size.height, height: frame.size.height)) // want a square so use the same height and width!
         showBackdrop.image = UIImage(named: self.show.image)
         view.addSubview(showBackdrop)
@@ -38,7 +39,16 @@ class ShowViewController: UIViewController {
         let font = UIFont(name: "Arial", size: 16)
         
         let str = NSString(string: self.show.summary)
-        
+//        let strCast = Array<String>(self.show.cast)
+//        // Need to figure out what type of class is an array of strings-- that is compatible with the boundingRectWithSize below!
+//        
+//        var boundsCast = strCast.boundingRectWithSize(CGSizeMake(frame.size.width-50, 510),
+//            options: .UsesLinesFragmentOrigin,
+//            attributes: [NSFontAttributeName:font!],
+//            context: nil)
+//        bounds.origin.x = 30
+//        bounds.origin.y = 310
+//        
         var bounds = str.boundingRectWithSize(
             CGSizeMake(frame.size.width-40, 500),
             options: .UsesLineFragmentOrigin,
@@ -46,7 +56,16 @@ class ShowViewController: UIViewController {
             context: nil)
         bounds.origin.x = 20
         bounds.origin.y = 300
-        
+//
+//        let castLabel = UILabel(frame: bounds)
+//        castLabel.textColor = .whiteColor()
+//        castLabel.backgroundColor = .clearColor()
+//        castLabel.numberOfLines = 0
+//        castLabel.lineBreakMode = .ByWordWrapping
+//        castLabel.textAlignment = .Center
+//        castLabel.text = self.show.cast
+//        view.addSubview(castLabel)
+//        
         let summaryLabel = UILabel(frame: bounds)
         summaryLabel.textColor = .whiteColor()
         summaryLabel.backgroundColor = .clearColor()
@@ -55,6 +74,18 @@ class ShowViewController: UIViewController {
         summaryLabel.textAlignment = .Center
         summaryLabel.text = self.show.summary
         view.addSubview(summaryLabel)
+        var castString = ""
+        for s in show.cast {
+            castString += "\(s),"
+        }
+        let castLabel = UILabel(frame: bounds)
+        castLabel.textColor = .whiteColor()
+        castLabel.backgroundColor = .clearColor()
+        castLabel.numberOfLines = 0 // "0" means unlimited. default is "1" which means only one line!
+        castLabel.lineBreakMode = .ByWordWrapping // don't break the words up
+        castLabel.textAlignment = .Center
+        castLabel.text = castString
+        view.addSubview(castLabel)
         
         self.view = view //passing off the view to the view controller
     }

@@ -27,7 +27,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         howImetYourMother.cast.append("Josh Radnor")
         howImetYourMother.cast.append("Jason Segel")
         howImetYourMother.cast.append("Cobie Smulders")
-        self.comediesArray.append(howImetYourMother)
+//        self.comediesArray.append(howImetYourMother)
         
         let twoAndAHalfMen = Show()
         twoAndAHalfMen.name = "Two And A Half Men"
@@ -100,8 +100,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         return self.realitiesArray.count
     }
-    
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) ->UITableViewCell {
         
         let cellId = "cellId"
         if let cell = tableView.dequeueReusableCellWithIdentifier(cellId){
@@ -109,9 +108,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
         
         let cell = UITableViewCell(style: .Subtitle, reuseIdentifier: cellId)
-        return self.configureCell(cell, indexPath: indexPath)        
+        return self.configureCell(cell, indexPath: indexPath)
+
+        
     }
-    
+
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 88
     }
@@ -148,12 +149,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         else {
             show = self.realitiesArray[indexPath.row]
         }
-        
+
         cell.textLabel?.text = show.name
         cell.detailTextLabel?.text = show.network
         cell.imageView?.image = UIImage(named: show.image)
         return cell
-    }
+    
+        }
+
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if (section == 0) {
@@ -164,13 +167,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
         
         return "Realities"
-    }
+        }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+        
+        }
 
 
 }
+
 
