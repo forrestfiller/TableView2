@@ -19,7 +19,7 @@ class ShowViewController: UIViewController {
         view.backgroundColor = .darkGrayColor()
         
         let showBackdrop = UIImageView(frame: CGRect(x: 0, y: 0, width: frame.size.height, height: frame.size.height))
-        // Gives me a square since I'm since the height == width for the imageView
+        // Gives a square since since height == width for imageView
         showBackdrop.image = UIImage(named: self.show.image)
         view.addSubview(showBackdrop)
         
@@ -28,8 +28,7 @@ class ShowViewController: UIViewController {
         view.addSubview(darkScreen)
         
         let showImage = UIImageView(frame: CGRect(x: 0, y: 120, width: 160, height: 160))
-        showImage.center = CGPointMake(0.5*frame.size.width, showImage.center.y)
-        // center property
+        showImage.center = CGPointMake(0.5*frame.size.width, showImage.center.y) // center property
         showImage.layer.cornerRadius = 0.5*showImage.frame.size.height
         showImage.layer.masksToBounds = true
         showImage.layer.borderColor = UIColor.whiteColor().CGColor
@@ -41,8 +40,8 @@ class ShowViewController: UIViewController {
         let str = NSString(string: self.show.summary)
         
         let reduceCast : String = self.show.cast.reduce("", combine: { $0 == "" ? $1 : $0 + ", " + $1 })
-        print("reduceCast: ")
         let cStr = NSString(string: reduceCast)
+        print("reduceCast: \(cStr)")
         
         var cBounds = cStr.boundingRectWithSize(
             CGSizeMake(frame.size.width-40, 500),
@@ -63,19 +62,15 @@ class ShowViewController: UIViewController {
         let summaryLabel = UILabel(frame: bounds)
         summaryLabel.textColor = .whiteColor()
         summaryLabel.backgroundColor = .clearColor()
-        summaryLabel.numberOfLines = 0 // "0" means unlimited. default is "1" which means only one line!
-        summaryLabel.lineBreakMode = .ByWordWrapping // don't break the words up
+        summaryLabel.numberOfLines = 0 // "0" means unlimited. default is "1" which means only 1 line!
+        summaryLabel.lineBreakMode = .ByWordWrapping // don't break up words
         summaryLabel.textAlignment = .Center
         summaryLabel.text = self.show.summary
         view.addSubview(summaryLabel)
 
-//          Below, "castString" with the for loop was first suggestion which worked, before I implemented the reducing function (Stuart's second fix).
-//        var castString = ""
-//        for s in show.cast {
-//            castString += "\(s),"
-// @Dan:   ---Stuart suggested this castString block as well as the castLabel block below to sove my issue with Array<String> from the Show.swift file.
-//        }
-        let castLabel = UILabel(frame: cBounds)
+//        let castLabel = UILabel(frame: cBounds)
+        let castLabel = UILabel(frame: CGRect(x: 20, y: 450, width: frame.size.width-40, height: cBounds.size.height))
+        castLabel.font = font
         castLabel.textColor = .whiteColor()
         castLabel.backgroundColor = .clearColor()
         castLabel.numberOfLines = 0 // "0" means unlimited. default is "1" which means only one line!
