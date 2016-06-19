@@ -40,7 +40,7 @@ class ShowViewController: UIViewController {
         let font = UIFont(name: "Arial", size: 16)
         let str = NSString(string: self.show.summary)
         
-        var reduceCast : String = self.show.cast.reduce("", combine: { $0 == "" ? $1 : $0 + "," + $1 })
+        let reduceCast : String = self.show.cast.reduce("", combine: { $0 == "" ? $1 : $0 + ", " + $1 })
         print("reduceCast: ")
         let cStr = NSString(string: reduceCast)
         
@@ -50,7 +50,7 @@ class ShowViewController: UIViewController {
             attributes:  [NSFontAttributeName:font!],
             context: nil)
         cBounds.origin.x = 20
-        cBounds.origin.y = 300
+        cBounds.origin.y = 500
 
         var bounds = str.boundingRectWithSize(
             CGSizeMake(frame.size.width-40, 500),
@@ -68,13 +68,14 @@ class ShowViewController: UIViewController {
         summaryLabel.textAlignment = .Center
         summaryLabel.text = self.show.summary
         view.addSubview(summaryLabel)
-        
+
+//          Below, "castString" with the for loop was first suggestion which worked, before I implemented the reducing function (Stuart's second fix).
 //        var castString = ""
 //        for s in show.cast {
 //            castString += "\(s),"
 // @Dan:   ---Stuart suggested this castString block as well as the castLabel block below to sove my issue with Array<String> from the Show.swift file.
 //        }
-        let castLabel = UILabel(frame: bounds)
+        let castLabel = UILabel(frame: cBounds)
         castLabel.textColor = .whiteColor()
         castLabel.backgroundColor = .clearColor()
         castLabel.numberOfLines = 0 // "0" means unlimited. default is "1" which means only one line!
@@ -86,11 +87,6 @@ class ShowViewController: UIViewController {
         self.view = view //passing off the view to the view controller
     }
     
-    
-    
-    
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -99,10 +95,6 @@ class ShowViewController: UIViewController {
         super.didReceiveMemoryWarning()
  
     }
-    
-
-    
-    
     
 
 }
